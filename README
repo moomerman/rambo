@@ -1,1 +1,12 @@
+To install the gem:
+
+gem sources -a http://gems.github.com
+sudo gem install moomerman-rambo
+
+To run the example:
+
+clone the repo (the examples are not part of the gem)
+cd rambo/example/blog/
 thin start -R server.ru -p 4000 --threaded
+
+head over to http://localhost:4000/
