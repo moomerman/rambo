@@ -1,0 +1,1 @@
+thin start -R server.ru -p 4000 --threaded

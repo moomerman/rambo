@@ -1,0 +1,11 @@
+<% if @post and @post.errors %>
+    <% @post.errors.each do |error| %>
+        <p><%= error %></p>
+    <% end %>
+<% end %>
+
+<form action="create" method="POST">
+    <p>Title: <input name="post[title]" type="text"/></p>
+    <p>Body: <textarea name="post[body]"></textarea></p>
+    <p><input type="submit" value="create"></p>
+</form>
