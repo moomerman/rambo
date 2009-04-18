@@ -1,4 +1,4 @@
-class MooController < Rambo::BaseController
+class MooController < Rambo::Controller
   def index
     "Moo Value of voo? #{params[:voo]}"
   end

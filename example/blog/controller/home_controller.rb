@@ -1,4 +1,4 @@
-class HomeController < Rambo::BaseController
+class HomeController < Rambo::Controller
   def index
     "Hello zzzasdasdkjhaskjh #{Time.now}"
   end

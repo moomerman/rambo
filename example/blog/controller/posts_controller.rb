@@ -1,4 +1,4 @@
-class PostsController < Rambo::BaseController
+class PostsController < Rambo::Controller
   
   def index
     @posts = Post.all(:order => [:created_at.desc])

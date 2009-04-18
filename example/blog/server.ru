@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'rack/cache'
+$:.unshift('../../lib') # remove this to use a local gem version
 require 'rambo'
 
 use Rack::CommonLogger
