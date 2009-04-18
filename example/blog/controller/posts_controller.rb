@@ -1,5 +1,12 @@
 class PostsController < Rambo::Controller
   
+  def init
+    @@blog ||= Blog.first
+    @blog = @@blog
+    redirect '/blog/new' unless @blog
+    redirect '/admin/login' unless session[:admin] or ['index', 'show', 'comment'].include? action
+  end
+  
   def index
     @posts = Post.all(:order => [:created_at.desc])
     unless fresh?(@posts.first)
@@ -20,9 +27,9 @@ class PostsController < Rambo::Controller
   end
   
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(params[:post].merge(:blog_id => @blog.id))
     if @post.save
-      redirect "/posts/show/#{@post.id}"
+      redirect "show/#{@post.id}"
     else
       erb :post_new
     end
@@ -31,7 +38,7 @@ class PostsController < Rambo::Controller
   def comment
     @post = Post.get(params[:id])
     @post.comments.create(params[:comment])
-    redirect "/posts/show/#{@post.id}"
+    redirect "show/#{@post.id}"
   end
   
 end

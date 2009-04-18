@@ -5,7 +5,8 @@ module Redirect
       destination = "/#{self.controller}/#{destination}"
     end
     #puts "redirecting to #{destination}"
-
+    
+    @rendered = true
     response.status = 302
     response.header['Location'] = destination
     return ""

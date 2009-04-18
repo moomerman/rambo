@@ -6,7 +6,10 @@
 </head>
 <body>
 
-<a href="/posts">Posts</a>
+<% if @blog %>
+    <h2><a href="/posts"><%= @blog.title %></a></h2>
+    <p><%= @blog.description %></p>
+<% end %>
 
 <%= yield %>
 

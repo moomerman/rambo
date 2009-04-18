@@ -12,6 +12,10 @@ module Rambo
     include Params
     include Redirect
     
+    def rendered?
+      @rendered
+    end
+    
     def controller
       self.request.controller
     end
@@ -20,5 +24,9 @@ module Rambo
       self.request.action
     end
   
+    def session
+      request.env['rack.session'] ||= {}
+    end
+    
   end
 end

@@ -32,14 +32,16 @@ module Rambo
         end
         obj.request = request
         obj.response = response
-      
+        
+        obj.init if obj.respond_to? :init 
+        
         #begin
-          result = obj.send(request.action)
+          result = obj.send(request.action) unless obj.rendered?
         #rescue Exception => e
           #return [404, response.header, "<h1>Action #{request.action} Not Found</h1>"]
         #end
         response.body = result if result
-      
+        
         [response.status, response.header, response.body]
       rescue Exception => e
         puts e.message
