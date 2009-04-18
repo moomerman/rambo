@@ -1,0 +1,6 @@
+database:
+  adapter: 'mysql'
+  host: 'localhost'
+  username: 'root'
+  password: ''
+  database: 'rambo_blog'

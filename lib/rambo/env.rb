@@ -1,21 +1,25 @@
 module Rambo
   class Env
     def initialize
-      # load from config - only do this IF database required
-      require 'dm-core'
-      require 'dm-validations'
-      require 'dm-timestamps'
-      #DataMapper.setup(:default, 'mysql://localhost/moo_development')
-      @connection ||= DataMapper.setup(
-        :default, 
-        :adapter => :mysql, 
-        :host => 'localhost', 
-        :database => 'rambo_blog', 
-        :username => 'root', 
-        :password => ''
-      )
-      #DataObjects::Mysql.logger = DataObjects::Logger.new(STDOUT, :debug)
-    
+      # TODO: config reload
+      @@config ||= YAML.load_file("config.yml") rescue nil || {}
+      
+      if dbconf = @@config['database']
+        require 'dm-core'
+        require 'dm-validations'
+        require 'dm-timestamps'
+        #DataMapper.setup(:default, 'mysql://localhost/moo_development')
+        @connection ||= DataMapper.setup(
+          :default, 
+          :adapter => dbconf['adapter'], 
+          :host => dbconf['host'], 
+          :database => dbconf['database'], 
+          :username => dbconf['username'], 
+          :password => dbconf['password']
+        )
+        #DataObjects::Mysql.logger = DataObjects::Logger.new(STDOUT, :debug)
+      end
+      
       Dir["controller/*.rb"].each { |x| funkyload x }
       Dir["model/*.rb"].each { |x| funkyload x }
       Dir["lib/*.rb"].each { |x| funkyload x }
