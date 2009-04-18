@@ -28,3 +28,5 @@ Features:
     = Request caching built in
     = fast static file serving
     = works with erb or haml templates (more to come)
+    = DataMapper integration
+    = Library only 60k
