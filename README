@@ -5,8 +5,9 @@ sudo gem install moomerman-rambo
 
 To run the example:
 
-clone the repo (the examples are not part of the gem)
+git clone git://github.com/moomerman/rambo.git
 cd rambo/example/blog/
-thin start -R server.ru -p 4000 --threaded
+rake db:setup # assumes database named rambo_blog
+rake server
 
 head over to http://localhost:4000/
