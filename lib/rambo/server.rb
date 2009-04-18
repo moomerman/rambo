@@ -65,12 +65,12 @@ module Rambo
         @@loadcache ||= {}
         if cache = @@loadcache[file] 
           if (mtime = File.mtime(file)) > cache
-            puts "reloading: #{file}"
+            #puts "reloading: #{file}"
             load file
             @@loadcache[file] = mtime
           end
         else
-          puts "loading: #{file}"
+          #puts "loading: #{file}"
           load file
           @@loadcache[file] = File.mtime(file)
         end

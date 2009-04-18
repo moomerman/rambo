@@ -4,7 +4,7 @@ module Redirect
     unless destination[0,1] == "/"
       destination = "/#{self.controller}/#{destination}"
     end
-    puts "redirecting to #{destination}"
+    #puts "redirecting to #{destination}"
 
     response.status = 302
     response.header['Location'] = destination

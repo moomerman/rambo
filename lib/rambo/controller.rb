@@ -5,7 +5,7 @@ require 'rambo/controller/redirect'
 
 module Rambo
   class Controller
-    attr_accessor :params, :request, :response
+    attr_accessor :request, :response
     
     include Template
     include Cache
