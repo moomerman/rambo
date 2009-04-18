@@ -1,5 +1,7 @@
 module Rambo
   class Env
+    @@config = {}
+    
     def initialize
       # TODO: config reload
       @@config ||= YAML.load_file("config.yml") rescue nil || {}
