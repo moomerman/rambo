@@ -7,7 +7,7 @@ module Rambo
   class Controller
     attr_accessor :params, :request, :response
     
-    include Templating
+    include Template
     include Cache
     include Params
     include Redirect

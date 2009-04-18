@@ -1,4 +1,4 @@
-module Templating
+module Template
   
   @@template_cache = {}
   
