@@ -1,4 +1,4 @@
-require 'rambo/controller/templating'
+require 'rambo/controller/template'
 require 'rambo/controller/cache'
 require 'rambo/controller/params'
 require 'rambo/controller/redirect'
