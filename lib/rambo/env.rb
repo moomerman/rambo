@@ -4,20 +4,20 @@ module Rambo
       # TODO: config reload
       @@config ||= YAML.load_file("config.yml") rescue nil || {}
       
-      if dbconf = @@config['database']
+      if dbconf = @@config['datamapper']
         require 'dm-core'
         require 'dm-validations'
         require 'dm-timestamps'
         #DataMapper.setup(:default, 'mysql://localhost/moo_development')
-        @connection ||= DataMapper.setup(
-          :default, 
-          :adapter => dbconf['adapter'], 
+        @@connection ||= DataMapper.setup(
+          :default,
+          :adapter => :mysql, 
           :host => dbconf['host'], 
           :database => dbconf['database'], 
           :username => dbconf['username'], 
           :password => dbconf['password']
         )
-        #DataObjects::Mysql.logger = DataObjects::Logger.new(STDOUT, :debug)
+        @@dblogger ||= DataObjects::Mysql.logger = DataObjects::Logger.new(STDOUT, dbconf['logging']) if dbconf['logging']
       end
       
       Dir["controller/*.rb"].each { |x| funkyload x }
@@ -31,9 +31,10 @@ module Rambo
       # request/response cycle
       def funkyload(file)
         @@loadcache ||= {}
-        if cache = @@loadcache[file] 
+        if cache = @@loadcache[file]
+          return unless @@config['rambo']['reload_classes']
           if (mtime = File.mtime(file)) > cache
-            #puts "reloading: #{file}"
+            puts "rambo: reloading: #{file}"
             load file
             @@loadcache[file] = mtime
           end

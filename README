@@ -11,3 +11,11 @@ rake db:setup # check config.yml for your specific db settings
 rake server
 
 head over to http://localhost:4000/
+
+Features:
+    = No Ruby object base class modifications
+    = Lightweight and fast
+    = Rack-based so works with most web servers (thin, mongrel, passenger)
+    = Ability to proxy request to n backend app servers [experimental]
+    = Request caching built in
+    = fast static file serving

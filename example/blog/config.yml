@@ -1,6 +1,10 @@
-database:
-  adapter: 'mysql'
+# gem install dm-core dm-timestamps dm-validations do_mysql
+datamapper:
   host: 'localhost'
   username: 'root'
   password: ''
   database: 'rambo_blog'
+  logging: :off # :off, :fatal, :error, :warn, :info, :debug
+  
+rambo:
+  reload_classes: true

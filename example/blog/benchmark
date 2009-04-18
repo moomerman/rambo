@@ -46,12 +46,12 @@ t4 = Thread.new do
   Report.new('/posts/show/1').run(100)
 end
 
-t5 = Thread.new do
-  Report.new('/moo/slow').run(20)
-end
+# t5 = Thread.new do
+#   Report.new('/moo/slow').run(20)
+# end
 
 t1.join rescue nil
 t2.join rescue nil
 t3.join rescue nil
 t4.join rescue nil
-t5.join rescue nil
+# t5.join rescue nil
