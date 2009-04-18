@@ -32,6 +32,7 @@ module Rambo
       Dir["controller/*.rb"].each { |x| funkyload x }
       Dir["model/*.rb"].each { |x| funkyload x }
       Dir["lib/*.rb"].each { |x| funkyload x }
+      Dir["*.rb"].each { |x| funkyload x }
     end
     
     private
