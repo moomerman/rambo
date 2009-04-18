@@ -1,25 +1,32 @@
 module Rambo
   class Env
-    @@config = {}
+    def self.config
+      @@config ||= YAML.load_file("config.yml") rescue nil
+      @@config ||= {}
+    end
     
     def initialize
-      # TODO: config reload
-      @@config ||= YAML.load_file("config.yml") rescue nil || {}
+      begin
+        # TODO: config reload
       
-      if dbconf = @@config['datamapper']
-        require 'dm-core'
-        require 'dm-validations'
-        require 'dm-timestamps'
-        #DataMapper.setup(:default, 'mysql://localhost/moo_development')
-        @@connection ||= DataMapper.setup(
-          :default,
-          :adapter => :mysql, 
-          :host => dbconf['host'], 
-          :database => dbconf['database'], 
-          :username => dbconf['username'], 
-          :password => dbconf['password']
-        )
-        @@dblogger ||= DataObjects::Mysql.logger = DataObjects::Logger.new(STDOUT, dbconf['logging']) if dbconf['logging']
+        if dbconf = Env.config['datamapper']
+          require 'dm-core'
+          require 'dm-validations'
+          require 'dm-timestamps'
+          #DataMapper.setup(:default, 'mysql://localhost/moo_development')
+          @@connection ||= DataMapper.setup(
+            :default,
+            :adapter => :mysql, 
+            :host => dbconf['host'], 
+            :database => dbconf['database'], 
+            :username => dbconf['username'], 
+            :password => dbconf['password']
+          )
+          @@dblogger ||= DataObjects::Mysql.logger = DataObjects::Logger.new(STDOUT, dbconf['logging']) if dbconf['logging']
+        end
+      rescue Exception => e
+        puts "Exception initializing environment: #{e.message}"
+        puts e.backtrace.join("\n")
       end
       
       Dir["controller/*.rb"].each { |x| funkyload x }
@@ -33,17 +40,22 @@ module Rambo
       # request/response cycle
       def funkyload(file)
         @@loadcache ||= {}
-        if cache = @@loadcache[file]
-          return unless @@config['rambo']['reload_classes']
-          if (mtime = File.mtime(file)) > cache
-            puts "rambo: reloading: #{file}"
+        begin
+          if cache = @@loadcache[file]
+            return if Env.config['rambo'] and Env.config['rambo']['reload_classes'] == false
+            if (mtime = File.mtime(file)) > cache
+              puts "rambo: reloading: #{file}"
+              load file
+              @@loadcache[file] = mtime
+            end
+          else
+            #puts "rambo: loading: #{file}"
             load file
-            @@loadcache[file] = mtime
+            @@loadcache[file] = File.mtime(file)
           end
-        else
-          #puts "loading: #{file}"
-          load file
-          @@loadcache[file] = File.mtime(file)
+        rescue Exception => e
+          puts "Exception loading class [#{file}]: #{e.message}"
+          puts e.backtrace.join("\n")
         end
       end
     

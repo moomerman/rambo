@@ -20,9 +20,17 @@ module Rambo
     def path_components
       @path_components ||= path.split('/')
     end
-  
+    
+    def default_controller
+      if Rambo::Env.config['rambo']
+        Rambo::Env.config['rambo']['default_controller'] || 'home'
+      else
+        'home'
+      end
+    end
+    
     def controller
-      path_components[1] || 'home'
+      path_components[1] || default_controller
     end
   
     def action
