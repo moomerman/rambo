@@ -4,22 +4,22 @@ class PostsController < Rambo::Controller
     @@blog ||= Blog.first
     @blog = @@blog
     redirect '/blog/new' unless @blog
-    redirect '/admin/login' unless session[:admin] or ['index', 'show', 'comment'].include? action
+    redirect '/admin/login' unless session[:admin] or (['index', 'show', 'comment'].include? action)
   end
   
   def index
     @posts = Post.all(:order => [:created_at.desc])
-    unless fresh?(@posts.first)
+    #unless fresh?(@posts.first)
       erb :posts
-    end
+    #end
   end
   
   def show
     @post = Post.get(params[:id])
-    unless fresh?(@post)
+    #unless fresh?(@post)
       @comments = @post.comments.all(:order => [:created_at.desc])
       erb :post
-    end
+    #end
   end
   
   def new

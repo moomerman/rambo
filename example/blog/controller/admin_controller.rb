@@ -1,7 +1,7 @@
 class AdminController < Rambo::Controller
   
   def init
-    redirect 'login' unless (session[:admin] or action == 'login')
+    redirect 'login' unless (session[:admin] or action == 'login' or action == 'dologin')
     @blog = Blog.first
     redirect '/blog/new' unless @blog
   end
@@ -14,8 +14,15 @@ class AdminController < Rambo::Controller
     erb :login
   end
   
+  def logout
+    session[:admin] = nil
+    redirect '/posts'
+  end
+  
   def dologin
+    puts @blog.authorize?(params[:username], params[:password])
     if @blog.authorize?(params[:username], params[:password])
+      session[:admin] = 'moo'
       redirect :index
     else
       redirect :login

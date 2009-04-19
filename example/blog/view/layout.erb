@@ -8,7 +8,7 @@
 
 <% if @blog %>
     <h2><a href="/posts"><%= @blog.title %></a></h2>
-    <p><%= @blog.description %></p>
+    <p><%= @blog.description %> <% if session[:admin] %>logged in<% end %></p>
 <% end %>
 
 <%= yield %>
