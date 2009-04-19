@@ -20,9 +20,8 @@ class AdminController < Rambo::Controller
   end
   
   def dologin
-    puts @blog.authorize?(params[:username], params[:password])
-    if @blog.authorize?(params[:username], params[:password])
-      session[:admin] = 'moo'
+    if blog = Blog.authenticate(params[:username], params[:password])
+      session[:admin] = blog.id
       redirect :index
     else
       redirect :login
