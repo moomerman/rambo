@@ -8,6 +8,7 @@ class CommentsController < Rambo::Controller
   end
   
   def embed
+    @host = host
     @account = Account.first(:uid => params[:id])
     unless @conversation = Conversation.first(:url => params[:url], :account_id => @account.id)
       @conversation = Conversation.new(:url => params[:url], :account => @account)

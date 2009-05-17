@@ -19,7 +19,7 @@ document.write('<h2>TwitBuddy Comments</h2>');
 
 document.write('<h3>Write a new comment <% if @user %>as @<%= @user.username %><% end %></h3>');
 
-document.write('<form method="POST" action="http://dev.twitbuddy.com:3000/comments/new/<%= @account.uid %>">');
+document.write('<form method="POST" action="http://<%= @host %>/comments/new/<%= @account.uid %>">');
 document.write('<textarea rows="5" cols="75" name="comment">Something</textarea>');
 document.write('<input name="location" type="hidden" value="'+tb_loc+'"></input><br/>');
 document.write('<input type="submit" value="comment"></input>');

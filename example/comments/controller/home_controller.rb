@@ -12,6 +12,7 @@ class HomeController < Rambo::Controller
   end
   
   def manage
+    @host = host
     erb :manage
   end
   

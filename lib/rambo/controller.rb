@@ -28,5 +28,9 @@ module Rambo
       request.env['rack.session'] ||= {}
     end
     
+    def host
+      self.request.env['HTTP_HOST']
+    end
+    
   end
 end
