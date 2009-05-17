@@ -1,4 +1,4 @@
-<h2><%= @post.title %></h2>
+<h1><%= @post.title %></h1>
 
 <div><%= @post.body %></div>
 <small><%= @post.created_at%></small>
@@ -11,3 +11,8 @@
 <% @comments.each do |comment| %>
     <div><%= comment.body %></div>
 <% end %>
+
+<a name='comments'/>
+<script type="text/javascript">
+  document.write(unescape("%3Cscript src='http://dev.twitbuddy.com:3000/comments/embed/5e881da722?url="+window.location.href+"' type='text/javascript'%3E%3C/script%3E"));
+</script>

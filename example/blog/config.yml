@@ -7,5 +7,5 @@ datamapper:
   logging: :off # :off, :fatal, :error, :warn, :info, :debug
   
 rambo:
-  reload_classes: true
+  reload_classes: true 
   default_controller: posts
