@@ -1,5 +1,5 @@
 require 'net/http'
-require 'right_http_connection'
+#require 'right_http_connection'
 
 module Rack
   class Proxy

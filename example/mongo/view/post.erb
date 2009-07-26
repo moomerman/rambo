@@ -1,0 +1,14 @@
+<h2><%= @post.title %></h2>
+
+<p><%= @post.body %></h2>
+    
+<h4>Comments:</h4>
+
+<% @post.comments.each do |comment| %>
+    <%= comment.message %><br/>
+<% end %>
+
+<form action="/home/comment/<%=@post.id%>">
+    <textarea name="comment[message]"></textarea>
+    <input type="submit" value="Create"/>
+</form>

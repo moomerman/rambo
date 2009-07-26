@@ -1,3 +1,5 @@
+require 'rack'
+
 module Rambo
   class Request < Rack::Request
     def user_agent

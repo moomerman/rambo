@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require 'thin'
+#require 'thin'
 
 require 'rambo/env'
 require 'rambo/controller'
