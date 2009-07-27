@@ -1,8 +1,8 @@
 <% @posts.each do |post| %>
-    <a href="/home/post/<%=post.id%>"><%= post.title %></a><br/>
+    <a href="/blog/post/<%=post.id%>"><%= post.title %></a><br/>
 <% end %>
 
-<form action="/home/create" method="post">
+<form action="/blog/create_post" method="post">
     Title: <input name="post[title]" type="text"/>
     Body: <textarea name="post[body]"></textarea>
     <input value="Add" type="submit"/>

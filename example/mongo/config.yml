@@ -1,0 +1,6 @@
+mongodb:
+  database: 'mapper'
+  
+rambo:
+  reload_classes: true 
+  default_controller: blog

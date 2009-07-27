@@ -8,7 +8,12 @@ module Rambo
     def initialize
       begin
         # TODO: config reload
-      
+        
+        if dbconf = Env.config['mongodb']
+          require 'mongomapper'
+          @@database ||= MongoMapper.database = dbconf['database']
+        end
+        
         if dbconf = Env.config['datamapper']
           require 'dm-core'
           require 'dm-validations'

@@ -1,8 +1,4 @@
-class HomeController < Rambo::Controller
-  
-  def init
-    @@database ||= MongoMapper.database = 'mapper'
-  end
+class BlogController < Rambo::Controller
   
   def index
     @posts = Post.all
@@ -14,14 +10,14 @@ class HomeController < Rambo::Controller
     erb :post
   end
   
-  def comment
+  def create_comment
     post = Post.find(params[:id])
     post.comments << Comment.new(params[:comment])
     post.save
-    redirect "/home/post/#{post.id}"
+    redirect "/blog/post/#{post.id}"
   end
   
-  def create
+  def create_post
     post = Post.create(params[:post])
     redirect :index
   end

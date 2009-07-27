@@ -1,5 +1,3 @@
-require 'mongomapper'
-
 class Post
   include MongoMapper::Document
 

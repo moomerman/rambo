@@ -8,7 +8,7 @@
     <%= comment.message %><br/>
 <% end %>
 
-<form action="/home/comment/<%=@post.id%>">
+<form action="/blog/create_comment/<%=@post.id%>">
     <textarea name="comment[message]"></textarea>
     <input type="submit" value="Create"/>
 </form>
