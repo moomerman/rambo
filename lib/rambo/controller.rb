@@ -12,7 +12,7 @@ module Rambo
     include Params
     include Redirect
     
-    def rendered?
+    def already_rendered?
       @rendered
     end
     

@@ -23,23 +23,25 @@ module Rambo
       
         request = Request.new(env)
         response = Response.new
-      
+        
+        # Could make this 'less magic'
         ctl_string = (request.controller.downcase.gsub(/^[a-z]|\s+[a-z]/) { |a| a.upcase } + 'Controller')
         begin
-          obj = Object.module_eval("::#{ctl_string}", __FILE__, __LINE__).new
+          controller = Object.module_eval("::#{ctl_string}", __FILE__, __LINE__).new
         rescue Exception => e
-          return [404, response.header, "<h1>Controller #{ctl_string} Not Found</h1>"]
+          return [404, response.header, "<h2>Routing error: controller <span style='color:grey'>#{request.controller}</span> not found</h2>"]
         end
-        obj.request = request
-        obj.response = response
+        controller.request = request
+        controller.response = response
         
-        obj.init if obj.respond_to? :init 
+        controller.init if controller.respond_to? :init 
         
-        #begin
-          result = obj.send(request.action) unless obj.rendered?
-        #rescue Exception => e
-          #return [404, response.header, "<h1>Action #{request.action} Not Found</h1>"]
-        #end
+        unless controller.respond_to? request.action
+          return [404, response.header, "<h2>Routing error: action <span style='color:grey'>#{request.action}</span> not found in <span style='color:grey'>#{request.controller}</span></h2>"]
+        end
+        
+        result = controller.send(request.action) unless controller.already_rendered?
+        
         response.body = result if result
         
         [response.status, response.header, response.body]

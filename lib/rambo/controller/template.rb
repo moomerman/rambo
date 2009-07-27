@@ -7,6 +7,11 @@ module Template
     render :erb, template, options, locals
   end
   
+  def haml(template, options={}, locals={})
+    require 'haml' unless defined? ::Haml
+    render :haml, template, options, locals
+  end
+  
   private
     def render(engine, template, options={}, locals={})
       # extract generic options
@@ -14,17 +19,20 @@ module Template
       layout = :layout if layout.nil? || layout == true
       views = options.delete(:views) || "./view"
       locals = options.delete(:locals) || locals || {}
- 
+
       # render template
-      data = lookup_template(engine, template, views)
-      output = __send__("render_#{engine}", template, data, options, locals)
- 
+      data, options[:filename], options[:line] = lookup_template(engine, template, views)
+      output = __send__("render_#{engine}", data, options, locals)
+
       # render layout
-      if layout && data = lookup_layout(engine, layout, views)
-        __send__("render_#{engine}", layout, data, options, {}) { output }
-      else
-        output
+      if layout
+        data, options[:filename], options[:line] = lookup_layout(engine, layout, views)
+        if data
+          output = __send__("render_#{engine}", data, options, locals) { output }
+        end
       end
+
+      output
     end
  
     def lookup_template(engine, template, views_dir)
@@ -34,14 +42,14 @@ module Template
         #   cached
         # else
           path = ::File.join(views_dir, "#{template}.#{engine}")
-          res = ::File.read(path)
+          [ ::File.read(path), path, 1 ]
         #  @@template_cache[template] = res
         #  res
         #end
       when Proc
-        template.call
+        [template.call, template, 1]
       when String
-        template
+        [template, template, 1]
       else
         raise ArgumentError
       end
@@ -53,7 +61,7 @@ module Template
       nil
     end
  
-    def render_erb(template, data, options, locals, &block)
+    def render_erb(data, options, locals, &block)
       original_out_buf = @_out_buf
       data = data.call if data.kind_of? Proc
  
@@ -64,5 +72,9 @@ module Template
       eval src, binding, '(__ERB__)', locals_assigns.length + 1
       @_out_buf, result = original_out_buf, @_out_buf
       result
+    end
+    
+    def render_haml(data, options, locals, &block)
+      ::Haml::Engine.new(data, options).render(self, locals, &block)
     end
 end
