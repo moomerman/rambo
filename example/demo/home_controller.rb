@@ -15,6 +15,9 @@ class HomeController < Rambo::Controller
     sleep 0.5
     ""
   end
+  def templates
+    haml :foo
+  end
   def nothing
     @name = 'fred'
     erb :blegga
