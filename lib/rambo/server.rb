@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
-#require 'thin'
-
 require 'rambo/env'
 require 'rambo/controller'
 require 'rambo/middleware'
@@ -10,6 +7,7 @@ require 'rambo/time'
 require 'rambo/request'
 require 'rambo/response'
 
+# Server simply routes the request to the correct controller/action and returns the result
 module Rambo
   class Server
     
@@ -19,10 +17,10 @@ module Rambo
   
     def call(env)
       begin
-        Rambo::Env.new
-      
         request = Request.new(env)
         response = Response.new
+        
+        Rambo::Env.new
         
         # Could make this 'less magic'
         ctl_string = (request.controller.downcase.gsub(/^[a-z]|\s+[a-z]/) { |a| a.upcase } + 'Controller')

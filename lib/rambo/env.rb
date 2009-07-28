@@ -1,3 +1,6 @@
+# Env handles all the configuration loading, database initialization and class (re)loading
+# would be nice to allow the user to specify their own init though if they want
+# Env.new can be called anywhere in any application and therefore acts as a global config
 module Rambo
   class Env
     def self.config
@@ -18,7 +21,6 @@ module Rambo
           require 'dm-core'
           require 'dm-validations'
           require 'dm-timestamps'
-          #DataMapper.setup(:default, 'mysql://localhost/moo_development')
           @@connection ||= DataMapper.setup(
             :default,
             :adapter => :mysql, 
@@ -32,6 +34,7 @@ module Rambo
       rescue Exception => e
         puts "Exception initializing environment: #{e.message}"
         puts e.backtrace.join("\n")
+        raise e
       end
       
       Dir["controller/*.rb"].each { |x| funkyload x }
