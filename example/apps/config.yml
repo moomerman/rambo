@@ -1,0 +1,3 @@
+rambo:
+  reload_classes: true 
+  default_controller: home

@@ -12,11 +12,11 @@ module Rambo
     end
   
     def path
-      env["REQUEST_PATH"]
+      @env["REQUEST_PATH"]
     end
   
     def uri
-      env["REQUEST_URI"]
+      @env["REQUEST_URI"]
     end
   
     def path_components
@@ -24,11 +24,19 @@ module Rambo
     end
     
     def default_controller
-      if Rambo::Env.config['rambo']
-        Rambo::Env.config['rambo']['default_controller'] || 'home'
+      if rambo_conf = Rambo::Env.config['rambo']
+        rambo_conf['default_controller'] || 'home'
       else
         'home'
       end
+    end
+    
+    def application_context
+      @application_context
+    end
+    
+    def application_context=(ctx)
+      @application_context = ctx
     end
     
     def controller
@@ -38,7 +46,11 @@ module Rambo
     def action
       path_components[2] || 'index'
     end
-  
+    
+    def controller_class
+      self.controller.downcase.gsub(/^[a-z]|\s+[a-z]/) { |a| a.upcase } + 'Controller'
+    end
+    
     # Override Rack 0.9.x's #params implementation (see #72 in lighthouse)
     def params
       self.GET.update(self.POST)

@@ -5,7 +5,9 @@ require 'rambo/controller'
 require 'rambo/middleware'
 require 'rambo/time'
 require 'rambo/request'
+require 'rambo/application_request'
 require 'rambo/response'
+require 'rambo/application_context'
 
 # Server simply routes the request to the correct controller/action and returns the result
 module Rambo
@@ -13,19 +15,32 @@ module Rambo
     
     def initialize(options = {})
       @options = options
+      env = Rambo::Env.new
+      @contexts = {
+        'default' => Rambo::ApplicationContext.new(),
+        'blog' => Rambo::ApplicationContext.new('blog')
+      }
     end
-  
+    
     def call(env)
       begin
+        
+        @contexts.each { |key, context| context.reload } if Rambo::Env.config
+        
         request = Request.new(env)
         response = Response.new
         
-        Rambo::Env.new
+        if @contexts.keys.include? request.controller.downcase
+          current_context = @contexts[request.controller.downcase]
+          request = Rambo::ApplicationRequest.new(env)
+        end
+        current_context ||= @contexts['default']
+        request.application_context = current_context
         
-        # Could make this 'less magic'
-        ctl_string = (request.controller.downcase.gsub(/^[a-z]|\s+[a-z]/) { |a| a.upcase } + 'Controller')
+        #puts "rambo: looking for #{request.controller_class}"
+        
         begin
-          controller = Object.module_eval("::#{ctl_string}", __FILE__, __LINE__).new
+          controller = Object.module_eval("::#{request.controller_class}", __FILE__, __LINE__).new
         rescue Exception => e
           return [404, response.header, "<h2>Routing error: controller <span style='color:grey'>#{request.controller}</span> not found</h2>"]
         end

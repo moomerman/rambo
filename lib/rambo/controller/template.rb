@@ -17,7 +17,7 @@ module Template
       # extract generic options
       layout = options.delete(:layout)
       layout = :layout if layout.nil? || layout == true
-      views = options.delete(:views) || "./view"
+      views = options.delete(:views) || self.request.application_context.view_path
       locals = options.delete(:locals) || locals || {}
 
       # render template
