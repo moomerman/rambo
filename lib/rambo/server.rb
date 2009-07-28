@@ -18,7 +18,7 @@ module Rambo
       env = Rambo::Env.new
       @contexts = {
         'default' => Rambo::ApplicationContext.new(),
-        'blog' => Rambo::ApplicationContext.new('blog')
+        #'blog' => Rambo::ApplicationContext.new('blog')
       }
     end
     
@@ -60,7 +60,7 @@ module Rambo
         [response.status, response.header, response.body]
       rescue Exception => e
         puts e.message
-        return [500, response.header, "<pre><b>#{e.message.gsub("<","&lt;")}</b>\n#{e.backtrace.join("\n")}</pre>"]
+        return [500, {}, "<pre><b>#{e.message.gsub("<","&lt;")}</b>\n#{e.backtrace.join("\n")}</pre>"]
       end
     end
   end

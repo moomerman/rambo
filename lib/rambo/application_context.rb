@@ -12,9 +12,9 @@ module Rambo
     
     def load_classes
       Dir["#{@prefix}controller/*.rb"].each { |x| funkyload x; }
-      Dir["{@prefix}model/*.rb"].each { |x| funkyload x }
-      Dir["{@prefix}lib/*.rb"].each { |x| funkyload x }
-      Dir["{@prefix}*.rb"].each { |x| funkyload x unless x == 'Rakefile.rb' }
+      Dir["#{@prefix}model/*.rb"].each { |x| funkyload x }
+      Dir["#{@prefix}lib/*.rb"].each { |x| funkyload x }
+      Dir["#{@prefix}*.rb"].each { |x| funkyload x unless x == 'Rakefile.rb' }
     end
     
     def reload
@@ -44,6 +44,7 @@ module Rambo
         rescue Exception => e
           puts "Exception loading class [#{file}]: #{e.message}"
           puts e.backtrace.join("\n")
+          raise e
         end
       end
     
