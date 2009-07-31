@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'rack/cache'
+#require 'rack/cache'
 $:.unshift('../../lib') # remove this to use a local gem version
 require 'rambo'
 Rambo::Env.new # makes sure we have all required dependencies
