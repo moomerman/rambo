@@ -6,5 +6,6 @@ require 'rambo'
 
 use Rack::CommonLogger
 use Rack::ContentLength
+use Rack::Static, :urls => ["/css", "/images", "/js"], :root => "public"
 app = Rambo::Server.new
 run app

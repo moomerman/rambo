@@ -1,9 +1,18 @@
+<h1>Rambo/MongoDB Blog</h1>
+
+<p style="background-color:yellow"><a href="#" onclick="$('#new_post').toggle()">+ New Post</a></p>
+<div id="new_post" class="hide standard_form">
+    <form action="/blog/create_post" method="post">
+        <p>Title: <br/> <input name="post[title]" type="text" class="textfield"/></p>
+        <p>Body: <br/> <textarea name="post[body]" class="textarea"></textarea></p>
+        <input value="Add" type="submit"/>
+    </form>
+</div>
+
 <% @posts.each do |post| %>
-    <a href="/blog/post/<%=post.id%>"><%= post.title %></a><br/>
+    <div>
+        <a href="/blog/post/<%=post.id%>"><%= post.title %></a> <small><%= post.created_at.strftime('%a %d %b %Y') %></small>
+        <p><%= post.body %></p>
+    </div>
 <% end %>
 
-<form action="/blog/create_post" method="post">
-    Title: <input name="post[title]" type="text"/>
-    Body: <textarea name="post[body]"></textarea>
-    <input value="Add" type="submit"/>
-</form>

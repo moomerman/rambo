@@ -1,7 +1,7 @@
 class BlogController < Rambo::Controller
   
   def index
-    @posts = Post.all
+    @posts = Post.find(:all, :order => 'created_at DESC')
     erb :posts
   end
   
