@@ -17,9 +17,9 @@
         
         <div style="float:right; margin-right:10px">
             <% if session[:user] %>
-                <%= session[:user].screen_name %>
+                <%= session[:user].screen_name %> <a href="/twitter/disconnect">logout</a>
             <% else %>
-                <a href="/twitter/connect">Login</a>
+                <a href="/twitter/connect">login via twitter</a>
             <% end %> 
         </div>
         
@@ -28,6 +28,14 @@
     
     <div class="maintext">
         <%= yield %>
+    </div>
+    
+    <div style="margin-top:50px">
+        <hr/>
+        <small>
+            &copy; Me.
+            Powered by Rambo Blog
+        </small>
     </div>
     
 </body>

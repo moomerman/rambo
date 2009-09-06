@@ -35,6 +35,6 @@ A.deemphasized:visited {color: #CC66CC;}
 blockquote {background-color: rgb(255, 255, 221);}
 .navbar li {list-style:none; display:inline;}
 .hide {display:none;}
-.textfield {width:350px; font-size:20px;}
+.textfield {width:600px; font-size:20px;}
 .textarea {width:600px; height:300px; font-size:20px; }
 .admin_action {background-color:yellow}

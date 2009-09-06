@@ -1,21 +1,38 @@
 <% @title = @post.title %>
 
-<h1><%= @post.title %></h1>
+<h1>
+    <%= @post.title %>
+    <% unless @post.url.empty? %>
+        <a href="<%= @post.url %>" target="_new">Link</a>
+    <% end %>
+</h1>
 <p class="overline">
-    <small>by <a href="#">Richard Taylor</a>, <%= @post.created_at.strftime('%B %d, %Y') %></small>
+    <small>
+        by <a href="http://twitter.com/<%= @post.author %>" target="_new">@<%= @post.author %></a> 
+        on <%= @post.created_at.strftime('%B %d, %Y') %>
+    </small>
+    <% if session[:user] and session[:user].admin? %>
+        <span class="admin_action"><small><a href="/post/edit/<%= @post.id %>">Edit</a></small></span>
+    <% end %>
 </p>
 
-<blockquote>Summary to go here, just do some stuff</blockquote>
+<% if @post.summary %>
+    <blockquote><%= @post.summary %></blockquote>
+<% end %>
 
-<p><%= @post.body %></p>
+<p><%= @post.body.gsub("\n", '<br/>') %></p>
 
 <h3>Comments:</h3>
 
-<% @post.comments.each do |comment| %>
-    <%= comment.message %><br/>
+<% @comments.each do |comment| %>
+    <%= comment.message %> by <a href="http://twitter.com/<%= comment.author %>" target="_new">@<%= comment.author %></a> <br/>
 <% end %>
 
-<form action="/blog/create_comment/<%=@post.id%>">
-    <p><textarea name="comment[message]" class="textarea"></textarea></p>
-    <input type="submit" value="Create"/>
-</form>
+<% if session[:user] %>
+    <form action="/blog/create_comment/<%= @post.id %>">
+        <p><textarea name="comment[message]" class="textarea"></textarea></p>
+        <input type="submit" value="Create"/>
+    </form>
+<% else %>
+    <p><a href="/twitter/connect">Login via twitter to comment</a></p>
+<% end %>

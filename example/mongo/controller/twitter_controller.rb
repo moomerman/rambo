@@ -9,6 +9,11 @@ class TwitterController < Rambo::Controller
     redirect request_token.authorize_url
   end
   
+  def disconnect
+    session.delete(:user)
+    redirect '/'
+  end
+  
   def oauth
     # Exchange the request token for an access token.
     
@@ -30,8 +35,8 @@ class TwitterController < Rambo::Controller
       
       puts("OAuth authorization: #{client.info['screen_name']}")
       
-      session[:access_token] = access_token.token
-      session[:access_secret] = access_token.secret
+      #session[:access_token] = access_token.token
+      #session[:access_secret] = access_token.secret
       
       user = User.new
       user.screen_name = client.info['screen_name']

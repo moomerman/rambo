@@ -5,8 +5,9 @@
     <div id="new_post" class="hide standard_form">
         <form action="/post/create" method="post">
             <p>Title: <br/> <input name="post[title]" type="text" class="textfield"/></p>
-            <p>Summary: <br/> <textarea name="post[body]" class="textarea"></textarea></p>
+            <p>URL: <br/> <input name="post[url]" type="text" class="textfield"/></p>
             <p>Body: <br/> <textarea name="post[body]" class="textarea"></textarea></p>
+            <p>Summary: <br/> <textarea name="post[summary]" class="textarea"></textarea></p>
             <input value="Add" type="submit"/>
         </form>
     </div>
@@ -16,11 +17,11 @@
     <div><h4><%= date.strftime('%B %d, %Y') %></h4></div>
     <% posts.each do |post| %>
         <div>
-            <a href="/post/show/<%=post.id%>/<%= post.slug %>"><%= post.title %></a> 
-            <% if session[:user] and session[:user].admin? %>
-                <span class="admin_action"><small><a href="/post/edit/<%= post.id %>">Edit</a></small></span>
+            <a href="/post/show/<%=post.id%>/<%= post.slug %>"><%= post.title %></a>
+            <% unless post.url.empty? %>
+                <a href="<%= post.url %>" target="_new">LINK !!!</a>
             <% end %>
-            <p><%= post.body %></p>
+            <!-- <p><%= post.body %></p> -->
         </div>
     <% end %>
 <% end %>

@@ -7,10 +7,11 @@ class BlogController < Rambo::Controller
   end
 
   def create_comment
+    redirect '/' and return unless session[:user]
     post = Post.find(params[:id])
-    post.comments << Comment.new(params[:comment])
+    post.comments << Comment.new(params[:comment].merge(:author => session[:user].screen_name))
     post.save
-    redirect "/blog/post/#{post.id}"
+    redirect "/post/show/#{post.id}"
   end
   
 end
