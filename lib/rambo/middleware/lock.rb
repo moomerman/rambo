@@ -1,6 +1,6 @@
 module Rack
   class Lock
-    FLAG = 'rack.multithread'.freeze
+    FLAG = 'rack.multithread'.freeze unless defined? FLAG
     
     def initialize(app, lock = Mutex.new)
       @app, @lock = app, lock

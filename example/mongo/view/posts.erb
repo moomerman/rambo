@@ -1,18 +1,27 @@
 <h1>Rambo/MongoDB Blog</h1>
 
-<p style="background-color:yellow"><a href="#" onclick="$('#new_post').toggle()">+ New Post</a></p>
-<div id="new_post" class="hide standard_form">
-    <form action="/blog/create_post" method="post">
-        <p>Title: <br/> <input name="post[title]" type="text" class="textfield"/></p>
-        <p>Body: <br/> <textarea name="post[body]" class="textarea"></textarea></p>
-        <input value="Add" type="submit"/>
-    </form>
-</div>
-
-<% @posts.each do |post| %>
-    <div>
-        <a href="/blog/post/<%=post.id%>"><%= post.title %></a> <small><%= post.created_at.strftime('%a %d %b %Y') %></small>
-        <p><%= post.body %></p>
+<% if session[:user] and session[:user].admin? %>
+    <span class="admin_action"><a href="#" onclick="$('#new_post').toggle()">+ New Post</a></span>
+    <div id="new_post" class="hide standard_form">
+        <form action="/post/create" method="post">
+            <p>Title: <br/> <input name="post[title]" type="text" class="textfield"/></p>
+            <p>Summary: <br/> <textarea name="post[body]" class="textarea"></textarea></p>
+            <p>Body: <br/> <textarea name="post[body]" class="textarea"></textarea></p>
+            <input value="Add" type="submit"/>
+        </form>
     </div>
+<% end %>
+
+<% @posts.each do |date, posts| %>
+    <div><h4><%= date.strftime('%B %d, %Y') %></h4></div>
+    <% posts.each do |post| %>
+        <div>
+            <a href="/post/show/<%=post.id%>/<%= post.slug %>"><%= post.title %></a> 
+            <% if session[:user] and session[:user].admin? %>
+                <span class="admin_action"><small><a href="/post/edit/<%= post.id %>">Edit</a></small></span>
+            <% end %>
+            <p><%= post.body %></p>
+        </div>
+    <% end %>
 <% end %>
 

@@ -1,7 +1,14 @@
-<h1><%= @post.title %></h1>
+<% @title = @post.title %>
 
-<p><%= @post.body %></h2>
-    
+<h1><%= @post.title %></h1>
+<p class="overline">
+    <small>by <a href="#">Richard Taylor</a>, <%= @post.created_at.strftime('%B %d, %Y') %></small>
+</p>
+
+<blockquote>Summary to go here, just do some stuff</blockquote>
+
+<p><%= @post.body %></p>
+
 <h3>Comments:</h3>
 
 <% @post.comments.each do |comment| %>

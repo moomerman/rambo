@@ -6,4 +6,9 @@ class Post
   key :created_at, Time, :default => Time.now.utc, :required => true
   
   many :comments
+
+  def slug
+    self.title.downcase.gsub(' ', '-').gsub(/[^a-z0-9_\-']+/, "")
+  end
+
 end

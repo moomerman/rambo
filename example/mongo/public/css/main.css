@@ -24,7 +24,7 @@ A.notrecommended:link {color: #6666FF;}
 A.notrecommended:visited {color: #CC66CC;}
 A.deemphasized:link {color: #6666FF;}
 A.deemphasized:visited {color: #CC66CC;}
-.overline {font-family: Verdana, Arial, Helvetica, Geneva, SunSans-Regular, sans-serif; margin-bottom: -2ex;}
+.overline {font-family: Verdana, Arial, Helvetica, Geneva, SunSans-Regular, sans-serif; margin-top: -2ex;}
 .updatecomment {font-size: 100%; background: #00FFFF;}
 .outsidecomment {font-size: 100%; background: #E9E9E9;}
 .microtext {font-size: 10% ; }
@@ -32,7 +32,9 @@ A.deemphasized:visited {color: #CC66CC;}
 .cssSmallGray {font-size: xx-small; color: #999999;}
 .boxquote {border: solid 1px gray; padding: 1ex;}
 
+blockquote {background-color: rgb(255, 255, 221);}
 .navbar li {list-style:none; display:inline;}
 .hide {display:none;}
 .textfield {width:350px; font-size:20px;}
 .textarea {width:600px; height:300px; font-size:20px; }
+.admin_action {background-color:yellow}

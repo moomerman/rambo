@@ -1,0 +1,6 @@
+<form action="/post/update/<%= @post.id %>" method="post">
+    <p>Title: <br/> <input name="post[title]" type="text" class="textfield" value="<%= @post.title %>"/></p>
+    <p>Summary: <br/> <textarea name="post[body]" class="textarea"></textarea></p>
+    <p>Body: <br/> <textarea name="post[body]" class="textarea"><%= @post.body %></textarea></p>
+    <input value="Add" type="submit"/>
+</form>

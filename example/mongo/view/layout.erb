@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Rambo/MongoDB Blog</title>
+    <title><%= @title ? @title + ' | ' : '' %>Rambo/MongoDB Blog</title>
     <link rel="stylesheet" href="/css/main.css" type="text/css"/>
     <script type="text/javascript" src="/js/jquery-1.3.2.min.js"></script>
 </head>
@@ -8,10 +8,22 @@
 <body>
     
     <div class="navbar">
-        <li><a href="/">Rambo/MongoDB Blog</a></li>
-        <% if @post %>
-            <li> / <%= @post.title %></li>
-        <% end %>
+        <div style="float:left; margin-left:10px">
+            <a href="/">Rambo/MongoDB Blog</a>
+            <% if @post %>
+                / <%= @post.title %>
+            <% end %>
+        </div>
+        
+        <div style="float:right; margin-right:10px">
+            <% if session[:user] %>
+                <%= session[:user].screen_name %>
+            <% else %>
+                <a href="/twitter/connect">Login</a>
+            <% end %> 
+        </div>
+        
+        <br clear="all"/>
     </div>
     
     <div class="maintext">
