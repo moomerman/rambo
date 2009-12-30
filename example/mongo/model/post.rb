@@ -5,7 +5,7 @@ class Post
   key :url, String
   key :summary, String
   key :body, String, :required => true
-  key :created_at, Time, :default => Time.now.utc, :required => true
+  key :created_at, :required => true
   key :author, String, :required => true
   
   many :comments

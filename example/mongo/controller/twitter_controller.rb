@@ -3,7 +3,9 @@ require 'twitter_oauth'
 class TwitterController < Rambo::Controller
 
   def connect    
-    request_token = oauth_client.authentication_request_token
+    request_token = oauth_client.authentication_request_token(
+      :oauth_callback => 'http://localhost:3000/twitter/oauth'
+    )
     session[:request_token] = request_token.token
     session[:request_token_secret] = request_token.secret
     redirect request_token.authorize_url
@@ -20,7 +22,8 @@ class TwitterController < Rambo::Controller
     begin
       access_token = oauth_client.authorize(
         session[:request_token],
-        session[:request_token_secret]
+        session[:request_token_secret],
+        :oauth_verifier => params[:oauth_verifier]
       )
     rescue
       redirect '/' and return
@@ -63,8 +66,8 @@ class TwitterController < Rambo::Controller
       secret ||= session[:access_secret]
       #@@config ||= YAML.load_file(File.join(RAILS_ROOT, "config/oauth.yml")) rescue nil || {}
       @@config = {}
-      @@config['consumer_key'] = ''
-      @@config['consumer_secret'] = ''
+      @@config['consumer_key'] = 'xxx'
+      @@config['consumer_secret'] = 'yyy'
       @client = TwitterOAuth::Client.new(
         :consumer_key => @@config['consumer_key'],
         :consumer_secret => @@config['consumer_secret'],

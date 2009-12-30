@@ -25,7 +25,7 @@
 <h3>Comments:</h3>
 
 <% @comments.each do |comment| %>
-    <%= comment.message %> by <a href="http://twitter.com/<%= comment.author %>" target="_new">@<%= comment.author %></a> <br/>
+    <%= comment.message.gsub('>', '&gt;').gsub('<', '&lt;') %> by <a href="http://twitter.com/<%= comment.author %>" target="_new">@<%= comment.author %></a> <br/>
 <% end %>
 
 <% if session[:user] %>
