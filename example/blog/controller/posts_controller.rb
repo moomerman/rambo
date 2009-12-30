@@ -27,7 +27,7 @@ class PostsController < Rambo::Controller
   end
   
   def create
-    @post = Post.new(params[:post].merge(:blog_id => @blog.id))
+    @post = Post.new(params[:post].merge(:blog_id => @blog.id, :created_at => Time.now.utc))
     if @post.save
       redirect "show/#{@post.id}"
     else
