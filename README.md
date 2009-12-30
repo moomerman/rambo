@@ -19,6 +19,23 @@ Smallest example (see the hello app in the example folder)
         end
     end
 
+Now create a config.ru file to tell rack how to run the application eg:
+
+    #!/usr/bin/env ruby
+
+    require 'rubygems'
+    require 'rambo'
+
+    use Rack::CommonLogger
+    use Rack::ContentLength
+    app = Rambo::Server.new
+
+    run app
+    
+Now you can run it with your favourite rack-based server, eg:
+
+    thin start -R config.ru
+
 Running an example locally
 --------------------------
 

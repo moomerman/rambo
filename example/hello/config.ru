@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-#require 'rack/handler/grizzly'
-$:.unshift('../../lib') # remove this to use a local gem version
+# $:.unshift('../../lib') # use this for testing
 require 'rambo'
 
 use Rack::CommonLogger
