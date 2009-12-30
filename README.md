@@ -32,10 +32,11 @@ To run the Blog example:
 head over to http://localhost:4000/
 
 Features:
-    = No Ruby object base class modifications
-    = Lightweight and fast
-    = Rack-based so works with most web servers (thin, mongrel, passenger)
-    = fast static file serving
-    = Template agnostic
-    = Database agnostic
-    = Library only 60k
+
+* No Ruby object base class modifications
+* Lightweight and fast
+* Rack-based so works with most web servers (thin, mongrel, passenger)
+* fast static file serving
+* Template agnostic
+* Database agnostic
+* Library only 60k
