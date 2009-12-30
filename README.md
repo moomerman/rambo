@@ -45,8 +45,8 @@ This should generate the minimal skeleton like this:
 
     Generating application blog ...
     creating blog/
-    creating blog/BlogController.rb
-    creating blog/config.yml
+    creating blog/controller/BlogController.rb
+    creating blog/rambo.yml
     creating blog/config.ru
     
 Run the example using:

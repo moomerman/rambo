@@ -4,7 +4,7 @@
 module Rambo
   class Env
     def self.config
-      @@config ||= YAML.load_file("config.yml") rescue nil
+      @@config ||= YAML.load_file("rambo.yml") rescue nil
       @@config ||= {}
     end
     
