@@ -1,3 +1,0 @@
-You need to have mongodb running:
-
-./bin/mongod --dbpath /Users/richard/tmp/mongo/

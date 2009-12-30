@@ -1,8 +1,0 @@
-<h2>Posts</h2>
-
-<% @posts.each do |post| %>
-    <div><a href="/posts/show/<%= post.id %>"><%= post.title %></a></div>
-<% end %>
-
-<br/><br/>
-<a href="/posts/new">Create New Post</a>

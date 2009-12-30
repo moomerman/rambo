@@ -1,3 +1,0 @@
-APPLICATIONS = [
-  'blog'
-]
