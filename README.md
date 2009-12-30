@@ -34,19 +34,31 @@ Now you can run it with your favourite rack-based server, eg:
 
     thin start -R config.ru
 
-Running an example locally
+Creating a new application
 --------------------------
 
-To run the Blog example:
+Use the rambo executable to create a new skeleton application:
 
-    git clone git://github.com/moomerman/rambo.git
-    cd rambo/example/blog/
-    rake db:setup # check config.yml for your specific db settings
-    rake server
+    rambo blog
 
-head over to http://localhost:4000/
+This should generate the minimal skeleton like this:
 
-Features:
+    Generating application blog ...
+    creating blog/
+    creating blog/BlogController.rb
+    creating blog/config.yml
+    creating blog/config.ru
+    
+Run the example using:
+
+    rackup
+
+Head over to:
+
+    http://localhost:9292/
+
+Features
+--------
 
 * No Ruby object base class modifications
 * Lightweight and fast
