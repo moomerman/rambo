@@ -1,0 +1,47 @@
+#!/usr/bin/ruby
+
+app_name = ARGV[0]
+
+unless app_name
+  puts "usage: rambo <application_name>"
+  exit(0)
+end
+
+if File.exist?(app_name)
+  puts "folder with name #{app_name} already exists, exiting."
+  exit(0)
+end
+
+puts "Generating application #{app_name} ..."
+
+puts "creating #{app_name}/"
+Dir.mkdir(app_name)
+
+default_controller = "#{app_name.downcase.gsub(/^[a-z]|\s+[a-z]/) { |a| a.upcase }}Controller"
+puts "creating #{app_name}/#{default_controller}.rb"
+
+controller_content =<<EOF
+class #{default_controller} < Rambo::Controller
+  def index
+    "Response from #{default_controller}#index"
+  end
+end
+EOF
+
+File.open("#{app_name}/#{default_controller}.rb", 'w') { |f| f.write(controller_content) }
+
+puts "creating #{app_name}/config.yml"
+
+config_content =<<EOF
+rambo:
+  default_controller: #{app_name}
+  reload_classes: true
+EOF
+
+File.open("#{app_name}/config.yml", 'w') { |f| f.write(config_content) }
+
+puts "creating #{app_name}/config.ru"
+
+rack_config = "require 'rubygems'\nrequire 'rambo'\napp=Rambo::Server.new\nrun app\n"
+
+File.open("#{app_name}/config.ru", 'w') { |f| f.write(rack_config) }

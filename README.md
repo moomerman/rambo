@@ -26,8 +26,6 @@ Now create a config.ru file to tell rack how to run the application eg:
     require 'rubygems'
     require 'rambo'
 
-    use Rack::CommonLogger
-    use Rack::ContentLength
     app = Rambo::Server.new
 
     run app
@@ -53,6 +51,7 @@ Features:
 * No Ruby object base class modifications
 * Lightweight and fast
 * Rack-based so works with most web servers (thin, mongrel, passenger)
+* Web applications can be deployed to Heroku
 * fast static file serving
 * Template agnostic
 * Database agnostic
