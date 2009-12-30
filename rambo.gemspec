@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Richard Taylor"]
   s.date = %q{2009-12-30}
-  s.description = %q{rambo is an experimental ruby web framework}
+  s.description = %q{rambo is an alternative web framework for ruby}
   s.email = %q{moomerman@gmail.com}
   s.files = ["README.md", "lib/rambo.rb"] + Dir.glob('lib/rambo/**/*.rb')
   s.has_rdoc = false
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{rambo}
   s.rubygems_version = %q{1.3.1}
-  s.summary = %q{rambo is an experimental ruby web framework based on rack}
+  s.summary = %q{rambo is an alternative web framework for ruby based on rack}
   s.executables << 'rambo'
   
   if s.respond_to? :specification_version then
