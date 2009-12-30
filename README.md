@@ -11,12 +11,12 @@ sudo gem install rambo
 Hello World Example
 -------------------
 
-Smallest example (see the hello app in the example folder)
+Smallest example, create a file called HomeController.rb with:
 
     class HomeController < Rambo::Controller
-        def index
-            "hello world"
-        end
+      def index
+        "hello world"
+      end
     end
 
 Now create a config.ru file to tell rack how to run the application eg:

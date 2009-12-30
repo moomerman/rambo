@@ -19,16 +19,16 @@ Gem::Specification.new do |s|
   s.summary = %q{rambo is an experimental ruby web framework based on rack}
   s.executables << 'rambo'
   
-  # if s.respond_to? :specification_version then
-  #   current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-  #   s.specification_version = 2
-  # 
-  #   if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-  #     s.add_runtime_dependency(%q<thin>, [">= 1.2.4"])
-  #   else
-  #     s.add_dependency(%q<thin>, [">= 1.2.4"])
-  #   end
-  # else
-  #   s.add_dependency(%q<thin>, [">= 1.2.4"])
-  # end
+  if s.respond_to? :specification_version then
+    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
+    s.specification_version = 2
+  
+    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<rack>, [">= 1.0.1"])
+    else
+      s.add_dependency(%q<thin>, [">= 1.0.1"])
+    end
+  else
+    s.add_dependency(%q<thin>, [">= 1.0.1"])
+  end
 end
