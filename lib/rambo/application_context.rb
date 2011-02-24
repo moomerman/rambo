@@ -37,7 +37,7 @@ module Rambo
               @@loadcache[file] = mtime
             end
           else
-            puts "ranmbo: loading: #{file}"
+            puts "rambo: loading: #{file}"
             load file
             @@loadcache[file] = File.mtime(file)
           end
