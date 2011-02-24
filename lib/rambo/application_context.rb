@@ -11,9 +11,9 @@ module Rambo
     end
     
     def load_classes
+      Dir["#{@prefix}lib/*.rb"].each { |x| funkyload x }
       Dir["#{@prefix}controller/*.rb"].each { |x| funkyload x; }
       Dir["#{@prefix}model/*.rb"].each { |x| funkyload x }
-      Dir["#{@prefix}lib/*.rb"].each { |x| funkyload x }
       Dir["#{@prefix}*.rb"].each { |x| funkyload x unless x == 'Rakefile.rb' }
     end
     
