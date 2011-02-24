@@ -2,7 +2,10 @@ module Rambo
   class Response < Rack::Response
     def initialize
       @status, @body = 200, []
-      @header = Rack::Utils::HeaderHash.new({'Content-Type' => 'text/html'})
+      @header = Rack::Utils::HeaderHash.new({
+        'Content-Type' => 'text/html',
+        'Server' => 'Rambo <http://github.com/moomerman/rambo>'
+      })
     end
 
     # def write(str)

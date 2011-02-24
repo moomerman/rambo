@@ -24,7 +24,6 @@ module Rambo
     
     def call(env)
       begin
-        
         @contexts.each { |key, context| context.reload } if Rambo::Env.config
         
         request = Request.new(env)
@@ -57,6 +56,7 @@ module Rambo
         result = [result] if result.is_a? String # ruby1.9
         
         response.body = result if result
+        response.body = [] if request.head?
         
         [response.status, response.header, response.body]
       rescue Exception => e

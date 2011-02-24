@@ -18,6 +18,10 @@ module Rambo
     def uri
       @env["REQUEST_URI"]
     end
+    
+    def method
+      @env['REQUEST_METHOD']
+    end
   
     def path_components
       @path_components ||= path.split('/')
