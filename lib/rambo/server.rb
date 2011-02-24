@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'rambo/colored'
 require 'rambo/env'
 require 'rambo/controller'
 require 'rambo/middleware'

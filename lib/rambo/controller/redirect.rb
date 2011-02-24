@@ -4,7 +4,7 @@ module Redirect
     unless destination[0,1] == "/" or destination =~ /^http(s)?:\/\// or destination =~ /^file:\/\//
       destination = "/#{self.controller}/#{destination}"
     end
-    puts "redirecting to #{destination}"
+    puts "redirect: ".cyan + "#{destination}"
     
     @rendered = true
     response.status = 302

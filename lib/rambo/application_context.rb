@@ -4,7 +4,7 @@ module Rambo
     
     def initialize(application_name = nil)
       @application_name = application_name
-      puts "rambo: initializing application: #{application_name || 'default'}"
+      puts "rambo:".green + " initializing application: #{application_name || 'default'}"
       @prefix = "#{self.application_name}/" if self.application_name
       @prefix ||= ''
       load_classes
@@ -32,12 +32,12 @@ module Rambo
           if cache = @@loadcache[file]
             return if Env.config['rambo'] and Env.config['rambo']['reload_classes'] == false
             if (mtime = File.mtime(file)) > cache
-              puts "rambo: reloading: #{file}"
+              puts "rambo:".green + " reloading: #{file}"
               load file
               @@loadcache[file] = mtime
             end
           else
-            puts "rambo: loading: #{file}"
+            puts "rambo:".green + " loading: #{file}"
             load file
             @@loadcache[file] = File.mtime(file)
           end
