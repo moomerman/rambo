@@ -1,7 +1,7 @@
 module Redirect
   def redirect(destination, options={})
     destination = destination.to_s if destination.is_a? Symbol
-    unless destination[0,1] == "/" or destination =~ /^http:\/\// or destination =~ /^file:\/\//
+    unless destination[0,1] == "/" or destination =~ /^http(s)?:\/\// or destination =~ /^file:\/\//
       destination = "/#{self.controller}/#{destination}"
     end
     puts "redirecting to #{destination}"
