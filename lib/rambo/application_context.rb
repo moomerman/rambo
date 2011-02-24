@@ -4,7 +4,7 @@ module Rambo
     
     def initialize(application_name = nil)
       @application_name = application_name
-      puts "Initializing application: #{application_name || 'default'}"
+      puts "rambo: initializing application: #{application_name || 'default'}"
       @prefix = "#{self.application_name}/" if self.application_name
       @prefix ||= ''
       load_classes
@@ -37,7 +37,7 @@ module Rambo
               @@loadcache[file] = mtime
             end
           else
-            puts " ->  loading: #{file}"
+            puts "ranmbo: loading: #{file}"
             load file
             @@loadcache[file] = File.mtime(file)
           end
