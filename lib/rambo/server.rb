@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'rambo/memory_profiler'
 require 'rambo/colored'
 require 'rambo/env'
 require 'rambo/controller'
@@ -58,6 +59,8 @@ module Rambo
         
         response.body = result if result
         response.body = [] if request.head?
+        
+        MemoryProfiler.profile
         
         [response.status, response.header, response.body]
       rescue Exception => e
