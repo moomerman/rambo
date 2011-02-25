@@ -64,8 +64,12 @@ module Rambo
         
         [response.status, response.header, response.body]
       rescue Exception => e
-        puts e.message
-        return [500, {'Content-Type' => 'text/html'}, ["<pre><b>#{e.message.gsub("<","&lt;")}</b>\n#{e.backtrace.join("\n")}</pre>"]]
+        puts e.message.red
+        if ENV['RACK_ENV'] == 'development'
+          return [500, {'Content-Type' => 'text/html'}, ["<pre><b>#{e.message.gsub("<","&lt;")}</b>\n#{e.backtrace.join("\n")}</pre>"]]
+        else
+          return [500, {'Content-Type' => 'text/html'}, ["<h1>Internal Error</h1>"]]
+        end
       end
     end
   end
