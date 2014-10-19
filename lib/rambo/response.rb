@@ -12,7 +12,7 @@ module Rambo
     #   @body << str.to_s
     #   str
     # end
-    # 
+    #
     # def finish
     #   @body = block if block_given?
     #   if [204, 304].include?(status.to_i)
